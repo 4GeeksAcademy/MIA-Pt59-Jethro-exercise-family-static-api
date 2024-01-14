@@ -15,22 +15,29 @@ class FamilyStructure:
         # example list of members
         self._members = []
 
-    # read-only: Use this method to generate random members ID's when adding members into the list
-    def _generateId(self):
-        return randint(0, 99999999)
-
+    
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        if "id" not in member:
+            member["id"] = randint(0, 99999999)
+
+        self._members.append(member)
+
 
     def delete_member(self, id):
         # fill this method and update the return
-        pass
+        self._members = list(filter(lambda member: member["id"] != id, self._members))
+        
 
     def get_member(self, id):
         # fill this method and update the return
-        pass
-
-    # this method is done, it returns a list with all the family members
+        member = list(filter(lambda member:member["id"] == id, self._members))
+        
+        if len(member) > 0:
+            return member[0]
+        
+        return None
+    
+     # this method is done, it returns a list with all the family members
     def get_all_members(self):
         return self._members
